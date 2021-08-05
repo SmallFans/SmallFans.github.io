@@ -1,0 +1,55 @@
+<html>
+<head></head>
+<body>
+  <div id="app">
+    <button @click="changeTabs('child1')">child1</button>
+    <button @click="changeTabs('child2')">child2</button>
+    <keep-alive>
+        <component :is="chooseTabs">
+        </component>
+    </keep-alive>
+</div>
+</body>
+<script src="./vue.js"></script>
+<script>
+  /**
+   * 1.keep-alive是源码内部定义的组件选项配置，它会先注册为全局组件供开发者全局使用，其中render函数定义了它的渲染过程
+   * 2.和普通组件一致，当父在创建真实节点的过程中，遇到keep-alive的组件会进行组件的初始化和实例化
+   * 3.实例化会执行挂载$mount的过程，这一步会执行keep-alive选项中的render函数
+   * 4.render函数在初始渲染时，会将渲染的子Vnode进行缓存。同时对应的子真实节点也会被缓存起来
+   */
+var child1 = {
+    template: '<div><button @click="add">add</button><p>{{num}}</p></div>',
+    data() {
+        return {
+            num: 1
+        }
+    },
+    methods: {
+        add() {
+            this.num++
+        }
+    },
+}
+var child2 = {
+    template: '<div>child2</div>'
+}
+var vm = new Vue({
+    el: '#app',
+    components: {
+        child1,
+        child2,
+    },
+    data() {
+        return {
+            chooseTabs: 'child1',
+        }
+    },
+    methods: {
+        changeTabs(tab) {
+            this.chooseTabs = tab;
+        }
+    }
+})
+</script>
+</html>

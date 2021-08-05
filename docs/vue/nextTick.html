@@ -1,0 +1,34 @@
+<html>
+<head></head>
+<body>
+  <div id="app">
+    <span id='name' ref='name'>{{ name }}</span>
+  <button @click='change'>change name</button>
+  </div>
+  
+    <!-- <div id="app">
+        {{ message }}
+    </div> -->
+</body>
+<script src="./vue.js"></script>
+<script>
+    var app = new Vue({
+        el: '#app',
+        data () {
+          return {
+            name: 'vue2'
+          }
+        },
+        methods: {
+          change() {
+            this.$nextTick(() => console.log('setter前：' + this.$refs.name.innerHTML))
+            this.name = ' vue3 '
+            console.log('同步方式：' + this.$refs.name.innerHTML)
+            setTimeout(() => console.log("setTimeout方式：" + this.$refs.name.innerHTML))
+            this.$nextTick(() => console.log('setter后：' + this.$refs.name.innerHTML))
+            this.$nextTick().then(() => console.log('Promise方式：' + this.$refs.name.innerHTML))
+          }
+        }
+    })
+</script>
+</html>
