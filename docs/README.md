@@ -52,4 +52,3 @@ const line3 = 'This is line 3'
   ```
 ### 状态机|使用状态机处理字符串
 ### http请求|http协议解析
-![An image](./.vuepress/public/img/brower/IMG2.png)
